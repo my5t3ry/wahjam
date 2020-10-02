@@ -41,6 +41,7 @@
 #include "EffectProcessor.h"
 #include "LoudNoiseDetector.h"
 #include "NJClient.h"
+#include "MidiDevice.h"
 #include "PortAudioSettingsPage.h"
 #include "PortAudioStreamer.h"
 #include "PortMidiSettingsPage.h"
@@ -107,6 +108,7 @@ private:
   PortMidiSettingsPage *portMidiSettingsPage;
   UISettingsPage *uiSettingsPage;
   QNetworkAccessManager *netManager;
+  MidiDevice *midiDevice;
   ChatOutput *chatOutput;
   QLineEdit *chatInput;
   ChannelTreeWidget *channelTree;

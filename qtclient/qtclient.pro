@@ -111,7 +111,7 @@ CONFIG += link_pkgconfig debug config
 PKGCONFIG += ogg vorbis vorbisenc portaudio-2.0
 
 # portmidi does not use pkg-config
-LIBS += -lportmidi -lvorbis -logg -lportaudio
+LIBS += -lportmidi -lvorbis -logg -lportaudio -lasound
 
 # Add QtKeychain directly because its QT module file does not work
 LIBS += -lqt5keychain
@@ -162,6 +162,7 @@ HEADERS += JammrAccessControlDialog.h
 HEADERS += JammrUpdateChecker.h
 HEADERS += LockableSettingsPage.h
 HEADERS += NJClient.h
+HEADERS += MidiDevice.h
 HEADERS += NINJAMServerBrowser.h
 HEADERS += logging.h
 HEADERS += PortAudioStreamer.h
@@ -195,6 +196,7 @@ SOURCES += JammrServerBrowser.cpp
 SOURCES += JammrAccessControlDialog.cpp
 SOURCES += JammrUpdateChecker.cpp
 SOURCES += NJClient.cpp
+SOURCES += MidiDevice.cpp
 SOURCES += NINJAMServerBrowser.cpp
 SOURCES += logging.cpp
 SOURCES += PortAudioStreamer.cpp

@@ -38,6 +38,7 @@
 #include "EffectProcessor.h"
 #include "EffectSettingsPage.h"
 #include "UISettingsPage.h"
+#include "MidiDevice.h"
 #include "PortAudioStreamer.h"
 #include "screensleep.h"
 #include "common/njmisc.h"
@@ -180,6 +181,8 @@ MainWindow::MainWindow(QWidget *parent)
   chatInput->connect(chatInput, SIGNAL(returnPressed()),
                      this, SLOT(ChatInputReturnPressed()));
   defaultChatInputFontSize = chatInput->font().pointSize();
+  midiDevice = new MidiDevice(chatOutput);
+  midiDevice->start();
 
   channelTree = new ChannelTreeWidget(this);
   connect(channelTree, SIGNAL(RemoteChannelMuteChanged(int, int, bool)),
@@ -236,7 +239,7 @@ MainWindow::MainWindow(QWidget *parent)
   disconnectedState->assignProperty(adminBPMAction, "enabled", false);
   disconnectedState->assignProperty(adminBPIAction, "enabled", false);
   disconnectedState->assignProperty(adminAccessControlAction,
-                                    "enabled", false);
+                                    "enabled", true);
   disconnectedState->assignProperty(kickMenu, "enabled", false);
 
   disconnectedState->addTransition(this, SIGNAL(Connecting()), connectingState);
