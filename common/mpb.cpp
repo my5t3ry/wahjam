@@ -939,6 +939,8 @@ Net_Message *mpb_midi_message::build()
   if (!p)
   {
     delete nm;
+    qDebug("Midi data is n %d", p);
+
     return 0;
   }
 
