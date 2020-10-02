@@ -107,7 +107,7 @@ QT += network widgets
 include(../common/libcommon.pri)
 
 QMAKE_CXXFLAGS += -Wno-write-strings
-CONFIG += link_pkgconfig
+CONFIG += link_pkgconfig debug
 PKGCONFIG += ogg vorbis vorbisenc portaudio-2.0
 
 # portmidi does not use pkg-config
