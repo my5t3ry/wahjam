@@ -899,7 +899,7 @@ Net_Message *mpb_chat_message::build()
 
 int mpb_midi_message::parse(Net_Message *msg) // return 0 on success
 {
-  if (msg->get_type() != MESSAGE_CHAT_MESSAGE) return -1;
+  if (msg->get_type() != MESSAGE_MIDI_MESSAGE) return -1;
   if (msg->get_size() < 1) return 1;
   char *p=(char *)msg->get_data();
   if (!p) return 2;
