@@ -915,7 +915,7 @@ int mpb_midi_message::parse(Net_Message *msg) // return 0 on success
     p++;
     if (p >= endp) break;
   }
-  return x?0:3;
+  return x?0:1;
 }
 
 
