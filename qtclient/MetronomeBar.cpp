@@ -63,9 +63,6 @@ void MetronomeBar::setCurrentBeat(int currentBeat)
   Q_ASSERT(currentBeat > 0 && currentBeat <= bpi);
 
   beat = currentBeat;
-  chatOutput->addInfoMessage(tr("Beat:%1").arg(currentBeat));
-
-
   /* This could be optimized to repaint only changed regions but it just makes
    * the code trickier.
    */
