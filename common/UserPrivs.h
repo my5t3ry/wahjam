@@ -19,7 +19,7 @@
 #ifndef _USERPRIVS_H_
 #define _USERPRIVS_H_
 
-#include <QString>
+#include <QtCore/QString>
 
 enum {
   PRIV_TOPIC = 1,       // may set topic
