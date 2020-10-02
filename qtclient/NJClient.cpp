@@ -1179,7 +1179,10 @@ void NJClient::tick()
       lastBeat = currentBeat;
       emit currentBeatChanged(currentBeat);
       if(currentBeat == 1){
-
+            sendMidiMessage(MIDI_STOP, 0);
+            midiBeatClockStarted = false;
+      sendMidiMessage(MIDI_START, 0);
+          midiBeatClockStarted = true;
       }
     }
   }
@@ -1473,17 +1476,12 @@ void NJClient::process_samples(float **outbuf, int outnch,
       for (int x = (stepSize - ((m_interval_pos + offset) % stepSize)) % stepSize;
            x < len;
            x += stepSize) {
-        if (!midiBeatClockStarted) {
-          sendMidiMessage(MIDI_START, 0);
-          midiBeatClockStarted = true;
-        }
 
         PmTimestamp timestampMS = (outputBufferDacTime + (double)(offset + x) / m_srate) * 1000.0 + 0.5;
         sendMidiMessage(MIDI_CLOCK, timestampMS);
       }
     } else if (midiBeatClockStarted) {
-      sendMidiMessage(MIDI_STOP, 0);
-      midiBeatClockStarted = false;
+
     }
   }
 }
