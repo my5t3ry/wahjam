@@ -1224,15 +1224,12 @@ char NJClient::uc2c(unsigned char c)
 #endif
 }
 
-void NJClient::MidiMessage_Send(unsigned char parm1,unsigned  char parm2)
+void NJClient::MidiMessage_Send(int parm1)
 {
   if (m_netcon)
   {
     mpb_midi_message m;
-    char convParam1 = uc2c(parm1);
-    char convParam2 = uc2c(parm2);
-    m.parms[0]=&convParam1;
-    m.parms[1]=&convParam2;
+    m.midi_msg=parm1;
     m_netcon->Send(m.build());
   }
 }

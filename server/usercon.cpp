@@ -776,7 +776,7 @@ void User_Connection::processMessage(Net_Message *msg)
 
         if (!err)
         {
-           qDebug("Midi msg received: %s,%s", mm.parms[0],mm.parms[1]);
+           qDebug("Midi msg received: %s,%s", mm.mid_msg);
         }
       }
     break;
