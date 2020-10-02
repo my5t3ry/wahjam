@@ -771,7 +771,10 @@ void User_Connection::processMessage(Net_Message *msg)
     case MESSAGE_MIDI_MESSAGE:
       {
         mpb_midi_message mm;
-        if (!mm.parse(msg))
+        int err = mm.parse(msg);
+       qDebug("Midi parse err %d", err);
+
+        if (!err)
         {
            qDebug("Midi msg received: %s,%s", mm.parms[0],mm.parms[1]);
         }
