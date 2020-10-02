@@ -1179,7 +1179,6 @@ void NJClient::tick()
       lastBeat = currentBeat;
       emit currentBeatChanged(currentBeat);
       if(currentBeat == 1){
-              sendMidiMessage(MIDI_STOP, 0);
               sendMidiMessage(MIDI_START, 0);
 
       }
