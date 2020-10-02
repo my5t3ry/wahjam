@@ -182,6 +182,7 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(ChatInputReturnPressed()));
   defaultChatInputFontSize = chatInput->font().pointSize();
   midiDevice = new MidiDevice(chatOutput);
+  midiDevice->setNJClient(&client);
   midiDevice->start();
 
   channelTree = new ChannelTreeWidget(this);

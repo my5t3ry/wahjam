@@ -168,6 +168,8 @@ public:
   // "MSG" "text"  - broadcast "text" to everybody
   // "PRIVMSG" "username" "text"  - send text to "username"
   void ChatMessage_Send(char *parm1, char *parm2, char *parm3=NULL, char *parm4=NULL, char *parm5=NULL);
+  void MidiMessage_Send(unsigned char parm1,unsigned char parm2);
+  char uc2c(unsigned char c);
 
   // messages you can receive from this:
   // "MSG" "user" "text"   - message from user to everybody (including you!), or if user is empty, from the server

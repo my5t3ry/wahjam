@@ -21,6 +21,7 @@
 
 #include <QThread>
 #include "ChatOutput.h"
+#include "NJClient.h"
 #include <alsa/asoundlib.h>
 
 
@@ -34,8 +35,10 @@ class MidiDevice : public QThread
 {
     public:
           MidiDevice(ChatOutput *chatOutput_ = 0);
+          void setNJClient(NJClient *client_);
     protected:
           ChatOutput *chatOutput;
+          NJClient *client;
 private:
  void run() override;
              char *device_in = NULL;

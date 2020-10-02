@@ -24,8 +24,11 @@ MidiDevice::MidiDevice(ChatOutput *chatOutput_)
 : chatOutput(chatOutput_)
 {
 
+}
 
 
+void MidiDevice::setNJClient(NJClient *client_) {
+    client = client_;
 }
 void MidiDevice::run() {
   snd_rawmidi_t *handle_in = 0,*handle_out = 0;
@@ -45,6 +48,7 @@ void MidiDevice::run() {
 
                   if (handle_in) {
                       snd_rawmidi_read(handle_in,&ch,1);
+                      client->MidiMessage_Send(ch,ch);
                   }
                     chatOutput->addInfoMessage(tr("thru: %1").arg(ch));
                   if (handle_out) {

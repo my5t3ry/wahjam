@@ -770,6 +770,16 @@ void User_Connection::processMessage(Net_Message *msg)
       }
     break;
 
+    case MESSAGE_MIDI_MESSAGE:
+      {
+        mpb_midi_message poo;
+        if (!poo.parse(msg))
+        {
+           qDebug("Midi msg received: %s,%s", &poo->parms[0],&poo->parms[1]);
+        }
+      }
+    break;
+
     default:
     break;
   }

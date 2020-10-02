@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <porttime.h>
@@ -1206,6 +1207,36 @@ void NJClient::ChatMessage_Send(char *parm1, char *parm2, char *parm3, char *par
     m_netcon->Send(m.build());
   }
 }
+
+char NJClient::uc2c(unsigned char c)
+{
+#if CHAR_MIN == 0
+  // char is unsigned
+  return c;
+#else
+  // char is signed
+  if (c <= CHAR_MAX)
+    return c;
+  else
+    // ASSUMPTION 1: int is larger than char
+    // ASSUMPTION 2: integers are 2's complement
+    return c - CHAR_MAX - 1 - CHAR_MAX - 1;
+#endif
+}
+
+void NJClient::MidiMessage_Send(unsigned char parm1,unsigned  char parm2)
+{
+  if (m_netcon)
+  {
+    mpb_midi_message m;
+    char convParam1= uc2c(parm1);
+    char convParam2= uc2c(parm2);
+    m.parms[0]=&convParam1;
+    m.parms[1]=&convParam2;
+    m_netcon->Send(m.build());
+  }
+}
+
 
 // encode my audio and send to server, if enabled
 void NJClient::processInputChannels(float **inbuf, int innch,

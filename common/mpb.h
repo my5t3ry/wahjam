@@ -296,6 +296,21 @@ class mpb_chat_message
 };
 
 
+#define MESSAGE_MIDI_MESSAGE 0xC0
+class mpb_midi_message
+{
+  public:
+    mpb_midi_message() { memset(parms,0,sizeof(parms)); }
+    ~mpb_midi_message() { }
+
+    int parse(Net_Message *msg); // return 0 on success
+    Net_Message *build();
+
+    char *parms[2];
+
+};
+
+
 
 
 #endif//_MPB_H_

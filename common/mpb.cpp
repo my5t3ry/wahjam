@@ -854,6 +854,7 @@ int mpb_chat_message::parse(Net_Message *msg) // return 0 on success
 }
 
 
+
 Net_Message *mpb_chat_message::build()
 {
   Net_Message *nm=new Net_Message;
@@ -866,6 +867,71 @@ Net_Message *mpb_chat_message::build()
     sz+=(parms[x]?strlen(parms[x]):0)+1;
   }
   
+  nm->set_size(sz);
+
+  char *p=(char *)nm->get_data();
+
+  if (!p)
+  {
+    delete nm;
+    return 0;
+  }
+
+  for (x = 0; x < sizeof(parms)/sizeof(parms[0]); x ++)
+  {
+    const char *sp=parms[x];
+    if (!sp) sp="";
+    strcpy(p,sp);
+    p+=strlen(sp)+1;
+  }
+
+  return nm;
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+//////////// bidirectional generic  messages
+/////////////////////////////////////////////////////////////////////////
+
+
+// MESSAGE_MIDI_MESSAGE
+
+
+int mpb_midi_message::parse(Net_Message *msg) // return 0 on success
+{
+  if (msg->get_type() != MESSAGE_CHAT_MESSAGE) return -1;
+  if (msg->get_size() < 1) return 1;
+  char *p=(char *)msg->get_data();
+  if (!p) return 2;
+
+  char *endp=(char*)msg->get_data()+msg->get_size();
+
+  unsigned int x;
+  memset(parms,0,sizeof(parms));
+  for (x = 0; x < sizeof(parms)/sizeof(parms[0]); x ++)
+  {
+    parms[x]=p;
+    while (p < endp && *p) p++;
+    p++;
+    if (p >= endp) break;
+  }
+  return x?0:3;
+}
+
+
+
+Net_Message *mpb_midi_message::build()
+{
+  Net_Message *nm=new Net_Message;
+  nm->set_type(MESSAGE_MIDI_MESSAGE);
+
+  unsigned int x;
+  int sz=0;
+  for (x = 0; x < sizeof(parms)/sizeof(parms[0]); x ++)
+  {
+    sz+=(parms[x]?strlen(parms[x]):0)+1;
+  }
+
   nm->set_size(sz);
 
   char *p=(char *)nm->get_data();
