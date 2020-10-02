@@ -1,6 +1,6 @@
 TEMPLATE = lib
 CONFIG += staticlib
-QT += network
+QT += network core
 QT -= gui
 
 SOURCES = mpb.cpp \

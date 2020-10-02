@@ -111,7 +111,7 @@ CONFIG += link_pkgconfig
 PKGCONFIG += ogg vorbis vorbisenc portaudio-2.0
 
 # portmidi does not use pkg-config
-LIBS += -lportmidi
+LIBS += -lportmidi -lvorbis -logg -lportaudio
 
 # Add QtKeychain directly because its QT module file does not work
 LIBS += -lqt5keychain
@@ -213,3 +213,4 @@ win32 {
 	SOURCES += screensleep_stub.cpp
 }
 SOURCES += UISettingsPage.cpp
+QT += widgets
