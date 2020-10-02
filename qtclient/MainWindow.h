@@ -83,6 +83,7 @@ private slots:
   void VoteBPIDialog();
   void XmitToggled(bool checked);
   void MetronomeToggled(bool checked);
+  void SetBeatChanged(int curBeat);
   void Reconnect();
   void AdminTopicDialog();
   void AdminBPMDialog();

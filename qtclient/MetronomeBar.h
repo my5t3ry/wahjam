@@ -20,6 +20,7 @@
 #define _METRONOMEBAR_H_
 
 #include <QFrame>
+#include "ChatOutput.h"
 
 /**
  * A custom widget to show beats
@@ -34,7 +35,7 @@ class MetronomeBar : public QFrame
   Q_PROPERTY(int currentBeat READ currentBeat WRITE setCurrentBeat)
 
 public:
-  MetronomeBar(QWidget *parent = 0);
+  MetronomeBar(QWidget *parent = 0,ChatOutput *chatOutput_ = 0);
 
   int beatsPerInterval() const;
   int currentBeat() const;
@@ -46,6 +47,8 @@ public slots:
   void reset();
   void setBeatsPerInterval(int bpi);
   void setCurrentBeat(int currentBeat);
+protected:
+  ChatOutput *chatOutput;
 
 private:
   void paintEvent(QPaintEvent *event);

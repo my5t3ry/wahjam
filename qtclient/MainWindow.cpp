@@ -185,7 +185,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(channelTree, SIGNAL(RemoteChannelMuteChanged(int, int, bool)),
           this, SLOT(RemoteChannelMuteChanged(int, int, bool)));
 
-  metronomeBar = new MetronomeBar(this);
+  metronomeBar = new MetronomeBar(this, chatOutput);
   connect(this, SIGNAL(Disconnected()),
           metronomeBar, SLOT(reset()));
 
@@ -299,6 +299,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
   settings->setValue("main/windowState", saveState());
   settings->setValue("main/splitterState", splitter->saveState());
   QMainWindow::closeEvent(event);
+}
+void MainWindow::SetBeatChanged(int curBeat)
+{
+
+ metronomeBar->setCurrentBeat(curBeat);
 }
 
 void MainWindow::setupStatusBar()
