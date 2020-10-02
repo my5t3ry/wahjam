@@ -759,7 +759,6 @@ void User_Connection::processMessage(Net_Message *msg)
         }
       }
     break;
-
     case MESSAGE_CHAT_MESSAGE:
       {
         mpb_chat_message poo;
@@ -769,17 +768,15 @@ void User_Connection::processMessage(Net_Message *msg)
         }
       }
     break;
-
     case MESSAGE_MIDI_MESSAGE:
       {
         mpb_midi_message mm;
         if (!mm.parse(msg))
         {
-           qDebug("Midi msg received: %s,%s", mm->parms[0],mm->parms[1]);
+           qDebug("Midi msg received: %s,%s", mm.parms[0],mm.parms[1]);
         }
       }
     break;
-
     default:
     break;
   }
