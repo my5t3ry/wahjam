@@ -27,6 +27,7 @@ MidiDevice::MidiDevice(QObject *parent, ChatOutput *chatOutput_)
 snd_rawmidi_t *handle_in = 0,*handle_out = 0;
   int mode = SND_RAWMIDI_NONBLOCK;
 
+
  device_in = "virtual";
   device_out = "virtual";
     err = snd_rawmidi_open(&handle_in,NULL,device_in,mode);
