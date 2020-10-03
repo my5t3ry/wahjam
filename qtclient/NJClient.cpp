@@ -1227,15 +1227,15 @@ char NJClient::uc2c(unsigned char c)
 
 void NJClient::MidiMessage_Send(int parm1)
 {
-  printf("m_netcon: %d",m_netcon);
+  printf("m_netcon: %d\n",m_netcon);
 
   if (m_netcon)
   {
     mpb_midi_message m;
     m.midi_msg=parm1;
-         printf("midi_msg type: %d",m.get_type());
+         printf("midi_msg type: %d \n",m.get_type());
 
-     printf("netcon_send: %d",m_netcon->Send(m.build()));
+     printf("netcon_send: %d\n",m_netcon->Send(m.build()));
 
   }
 }
