@@ -296,7 +296,7 @@ class mpb_chat_message
 };
 
 
-#define MESSAGE_MIDI_MESSAGE 0xC1
+#define MESSAGE_MIDI_MESSAGE 0x30
 class mpb_midi_message
 {
   public:
