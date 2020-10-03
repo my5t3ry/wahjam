@@ -50,7 +50,6 @@ void MidiDevice::run() {
 
                   if (handle_in) {
                       snd_rawmidi_read(handle_in,&ch,1);
-                      fprintf(stderr,"thru: %02x\n",ch);
 
                   }
                   if (handle_out) {
