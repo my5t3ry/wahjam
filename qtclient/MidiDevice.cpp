@@ -51,6 +51,8 @@ void MidiDevice::run() {
                       snd_rawmidi_read(handle_in,&ch,1);
                   }
                     chatOutput->addInfoMessage(tr("thru: %1").arg(ch));
+                            client.MidiMessage_Send((int) ch);
+
                   if (handle_out) {
                       snd_rawmidi_write(handle_out,&ch,1);
                       snd_rawmidi_drain(handle_out);
