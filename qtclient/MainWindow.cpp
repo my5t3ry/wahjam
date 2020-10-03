@@ -835,6 +835,8 @@ void MainWindow::ClientStatusChanged(int newStatus)
         "2. Set tempo with '!vote bpm NUMBER' and enable Metronome button if no drums\n"
         "3. Take turns soloing.  For example 1 minute per person."
     );
+        client->MidiMessage_Send(111);
+
     emit Connected();
     return;
 

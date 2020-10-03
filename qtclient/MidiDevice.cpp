@@ -29,7 +29,6 @@ MidiDevice::MidiDevice(ChatOutput *chatOutput_)
 
 void MidiDevice::setNJClient(NJClient *client_) {
     client = client_;
-    client->MidiMessage_Send(111);
 
 }
 void MidiDevice::run() {
