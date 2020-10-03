@@ -1226,6 +1226,8 @@ char NJClient::uc2c(unsigned char c)
 
 void NJClient::MidiMessage_Send(int parm1)
 {
+  printf("m_netcon: %d",m_netcon);
+
   if (m_netcon)
   {
     mpb_midi_message m;
