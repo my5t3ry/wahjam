@@ -1503,8 +1503,6 @@ void NJClient::process_samples(float **outbuf, int outnch,
   }
 
   /* MIDI Beat Clock */
-  if (!justmonitor) {
-    if (sendMidiBeatClock) {
       /* The MIDI Beat Clock message is sent 24 times per quarter note */
       int stepSize = m_metronome_interval / 24;
 
@@ -1515,10 +1513,6 @@ void NJClient::process_samples(float **outbuf, int outnch,
         PmTimestamp timestampMS = (outputBufferDacTime + (double)(offset + x) / m_srate) * 1000.0 + 0.5;
         sendMidiMessage(MIDI_CLOCK, timestampMS);
       }
-    } else if (midiBeatClockStarted) {
-
-    }
-  }
 }
 
 void NJClient::mixInChannel(bool muted, float vol, float pan, DecodeState *chan, float **outbuf, int len, int outnch, int offs, double vudecay)
