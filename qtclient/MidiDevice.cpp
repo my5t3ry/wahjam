@@ -59,3 +59,4 @@ void MidiDevice::run() {
                   }
               }
   }
+

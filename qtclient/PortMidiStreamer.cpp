@@ -136,8 +136,8 @@ bool PortMidiStreamer::read(PmEvent *event)
 void PortMidiStreamer::write(const PmEvent *event)
 {
   if (outputStream) {
-   qDebug("Writing midi messsage %x",
-            event->message);
+   qDebug("Writing midi messsage %02x,%d",
+            event->message,event->timestamp);
     Pm_WriteShort(outputStream, event->timestamp, event->message);
   }
 }
