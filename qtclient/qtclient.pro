@@ -106,12 +106,12 @@ QT += network widgets
 
 include(../common/libcommon.pri)
 
-QMAKE_CXXFLAGS += -Wno-write-strings
+QMAKE_CXXFLAGS += -Wno-write-strings -D__LINUX_ALSA__ -Wall
 CONFIG += link_pkgconfig debug config
 PKGCONFIG += ogg vorbis vorbisenc portaudio-2.0
 
 # portmidi does not use pkg-config
-LIBS += -lportmidi -lvorbis -logg -lportaudio -lasound
+LIBS += -lportmidi -lvorbis -logg -lportaudio -lasound -lpthread
 
 # Add QtKeychain directly because its QT module file does not work
 LIBS += -lqt5keychain

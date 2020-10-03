@@ -38,17 +38,25 @@ MidiDevice::MidiDevice(ChatOutput *chatOutput_)
 
 
 void MidiDevice::setNJClient(NJClient *client_) {
-    client = client_;
-   client->MidiMessage_Send(111);
-RtMidiIn *midiin = new RtMidiIn();
+   client = client_;
+  client->MidiMessage_Send(111);
+  RtMidiIn *midiin = new RtMidiIn();
+  unsigned int nPorts = midiin->getPortCount();
+  if ( nPorts == 0 ) {
+      std::cout << "No ports available!\n";
+      goto cleanup;
+  }
   // Check available ports.
   midiin->openVirtualPort("test");
   // Set our callback function.  This should be done immediately after
   // opening the port to avoid having incoming messages written to the
   // queue.
   midiin->setCallback( &callback );
+
   // Don't ignore sysex, timing, or active sensing messages.
   midiin->ignoreTypes( false, false, false );
+   cleanup:
+    delete midiin;
 }
 
 
