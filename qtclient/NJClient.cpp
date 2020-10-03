@@ -965,6 +965,7 @@ void NJClient::processMessage(Net_Message *msg)
         }
       }
       break;
+
     default:
       //printf("Got unknown message %02X\n",msg->get_type());
       break;
@@ -1232,6 +1233,8 @@ void NJClient::MidiMessage_Send(int parm1)
   {
     mpb_midi_message m;
     m.midi_msg=parm1;
+         printf("midi_msg type: %d",m.get_type());
+
      printf("netcon_send: %d",m_netcon->Send(m.build()));
 
   }
