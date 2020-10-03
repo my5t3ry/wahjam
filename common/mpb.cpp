@@ -909,6 +909,11 @@ int mpb_midi_message::parse(Net_Message *msg) // return 0 on success
 }
 
 
+int mpb_midi_message::get_type(Net_Message *msg) // return 0 on success
+{
+   return msg->get_type();
+}
+
 
 Net_Message *mpb_midi_message::build()
 {

@@ -305,6 +305,8 @@ class mpb_midi_message
 
     int parse(Net_Message *msg); // return 0 on success
     Net_Message *build();
+    int get_type(Net_Message *msg);
+
 
     int midi_msg;
 
