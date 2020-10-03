@@ -773,7 +773,6 @@ void User_Connection::processMessage(Net_Message *msg)
       {
        mpb_midi_message mm;
        int err = mm.parse(msg);
-       qDebug("Midi parse err %d", err);
 
         if (!err)
         {

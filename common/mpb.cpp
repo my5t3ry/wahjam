@@ -900,7 +900,7 @@ Net_Message *mpb_chat_message::build()
 int mpb_midi_message::parse(Net_Message *msg) // return 0 on success
 {
    if (msg->get_type() != MESSAGE_MIDI_MESSAGE) return -1;
-    unsigned char *p=(unsigned char *)msg->get_data();
+    int p=(int)msg->get_data();
     if (!p) return 2;
 
     midi_msg = *p++;
@@ -930,8 +930,7 @@ Net_Message *mpb_midi_message::build()
     return 0;
   }
 
-  *p++=midi_msg&0xff;
-  *p++=(midi_msg>>8)&0xff;
+  *p++=midi_msg;
 
   return nm;
 }
