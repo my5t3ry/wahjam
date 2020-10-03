@@ -182,8 +182,7 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(ChatInputReturnPressed()));
   defaultChatInputFontSize = chatInput->font().pointSize();
   midiDevice = new MidiDevice(chatOutput);
-  midiDevice->setNJClient(&client);
-  midiDevice->start();
+
 
   channelTree = new ChannelTreeWidget(this);
   connect(channelTree, SIGNAL(RemoteChannelMuteChanged(int, int, bool)),
@@ -835,7 +834,8 @@ void MainWindow::ClientStatusChanged(int newStatus)
         "2. Set tempo with '!vote bpm NUMBER' and enable Metronome button if no drums\n"
         "3. Take turns soloing.  For example 1 minute per person."
     );
-
+    midiDevice->setNJClient(&client);
+    midiDevice->start();
     emit Connected();
     return;
 
