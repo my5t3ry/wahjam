@@ -915,7 +915,7 @@ Net_Message *mpb_midi_message::build()
   Net_Message *nm=new Net_Message;
   nm->set_type(MESSAGE_MIDI_MESSAGE);
 
-  nm->set_size(2);
+  nm->set_size(1);
 
   unsigned char *p=(unsigned char *)nm->get_data();
 
