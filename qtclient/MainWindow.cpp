@@ -181,8 +181,9 @@ MainWindow::MainWindow(QWidget *parent)
   chatInput->connect(chatInput, SIGNAL(returnPressed()),
                      this, SLOT(ChatInputReturnPressed()));
   defaultChatInputFontSize = chatInput->font().pointSize();
-  midiDevice = new MidiDevice(0,chatOutput);
+  midiDevice = new MidiDevice(chatOutput);
   midiDevice->setNJClient(&client);
+  midiDevice->start();
 
   channelTree = new ChannelTreeWidget(this);
   connect(channelTree, SIGNAL(RemoteChannelMuteChanged(int, int, bool)),
@@ -836,8 +837,6 @@ void MainWindow::ClientStatusChanged(int newStatus)
     );
 
     emit Connected();
-    midiDevice->start();
-
     return;
 
   case NJClient::NJC_STATUS_DISCONNECTED:
@@ -852,8 +851,6 @@ void MainWindow::ClientStatusChanged(int newStatus)
 
   chatOutput->addInfoMessage(statusMessage);
   Disconnect();
-      midiDevice->stopRelay();
-
 }
 
 void MainWindow::BeatsPerMinuteChanged(int bpm)

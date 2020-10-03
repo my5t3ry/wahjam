@@ -19,7 +19,7 @@
 #ifndef _MIDIDEVICE_H_
 #define _MIDIDEVICE_H_
 
-#include <QObject>
+#include <QThread>
 #include "ChatOutput.h"
 #include "NJClient.h"
 #include <alsa/asoundlib.h>
@@ -31,21 +31,19 @@
  * Beats are grouped into intervals.  Each interval has a fixed number of
  * beats.  This widget shows the current beat similar to a progress bar widget.
  */
-class MidiDevice : public QObject
+class MidiDevice : public QThread
 {
-       Q_OBJECT
     public:
-          MidiDevice(QObject *parent = 0,ChatOutput *chatOutput_ = 0);
+          MidiDevice(ChatOutput *chatOutput_ = 0);
           void setNJClient(NJClient *client_);
-           void start() ;
-           void stopRelay() ;
     protected:
           ChatOutput *chatOutput;
           NJClient *client;
 private:
+ void run() override;
              char *device_in = NULL;
                 int err;
-                int stop = 0;
+                int stop=0;
 
             char *device_out = NULL;
               char *node_in = NULL;

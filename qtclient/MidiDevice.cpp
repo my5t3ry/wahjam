@@ -20,25 +20,10 @@
 
 #include "MidiDevice.h"
 
-MidiDevice::MidiDevice(QObject *parent, ChatOutput *chatOutput_)
-: QObject(parent),chatOutput(chatOutput_)
+MidiDevice::MidiDevice(ChatOutput *chatOutput_)
+: chatOutput(chatOutput_)
 {
 
-snd_rawmidi_t *handle_in = 0,*handle_out = 0;
-  int mode = SND_RAWMIDI_NONBLOCK;
-
-
- device_in = "virtual";
-  device_out = "virtual";
-    err = snd_rawmidi_open(&handle_in,NULL,device_in,mode);
-          if (err) {
-              fprintf(stderr,"snd_rawmidi_open %s failed: %d\n",device_in,err);
-          }
-    err = snd_rawmidi_open(NULL,&handle_out,device_out,mode);
-           if (err) {
-               fprintf(stderr,"snd_rawmidi_open %s failed: %d\n",device_out,err);
-           }
-  printf("Added Midi Device:%1","test");
 }
 
 
@@ -46,8 +31,31 @@ void MidiDevice::setNJClient(NJClient *client_) {
     client = client_;
 
 }
-void MidiDevice::stopRelay() {
+void MidiDevice::run() {
+  snd_rawmidi_t *handle_in = 0,*handle_out = 0;
+ device_in = "virtual";
+  device_out = "virtual";
+    err = snd_rawmidi_open(&handle_in,NULL,device_in,0);
+          if (err) {
+              fprintf(stderr,"snd_rawmidi_open %s failed: %d\n",device_in,err);
+          }
+    err = snd_rawmidi_open(NULL,&handle_out,device_out,0);
+           if (err) {
+               fprintf(stderr,"snd_rawmidi_open %s failed: %d\n",device_out,err);
+           }
+  chatOutput->addInfoMessage(tr("Added Midi Device:%1").arg("test"));
+ while (!stop) {
+                  unsigned char ch;
 
-}
-void MidiDevice::start() {
+                  if (handle_in) {
+                      snd_rawmidi_read(handle_in,&ch,1);
+                  }
+                    chatOutput->addInfoMessage(tr("thru: %1").arg(ch));
+                            client->MidiMessage_Send((int) ch);
+
+                  if (handle_out) {
+                      snd_rawmidi_write(handle_out,&ch,1);
+                      snd_rawmidi_drain(handle_out);
+                  }
+              }
   }
