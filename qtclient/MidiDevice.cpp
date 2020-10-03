@@ -51,7 +51,7 @@ void MidiDevice::run() {
                   if (handle_in) {
                       snd_rawmidi_read(handle_in,&ch,1);
                   }
-                    chatOutput->addInfoMessage(tr("thru: %d").arg((int)ch));
+                    chatOutput->addInfoMessage(tr("thru: %d").arg((int) ch++));
 
                   if (handle_out) {
                       snd_rawmidi_write(handle_out,&ch,1);
