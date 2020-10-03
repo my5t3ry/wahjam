@@ -38,7 +38,7 @@ snd_rawmidi_t *handle_in = 0,*handle_out = 0;
            if (err) {
                fprintf(stderr,"snd_rawmidi_open %s failed: %d\n",device_out,err);
            }
-  chatOutput->addInfoMessage(tr("Added Midi Device:%1").arg("test"));
+  fprintf("Added Midi Device:%1","test");
 }
 
 
