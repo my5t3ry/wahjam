@@ -1232,9 +1232,8 @@ void NJClient::MidiMessage_Send(int parm1)
   {
     mpb_midi_message m;
     m.midi_msg=parm1;
-     printf("Midi msg build %d",m.build());
+     printf("netcon_send: %d",m_netcon->Send(m.build());
 
-    m_netcon->Send(m.build());
   }
 }
 
