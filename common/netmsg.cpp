@@ -208,6 +208,8 @@ bool Net_Connection::hasMessagesAvailable()
 int Net_Connection::Send(Net_Message *msg, bool deleteAfterSend)
 {
   if (!msg) {
+       printf("msg invalide: %d",msg);
+
     return 0;
   }
 
@@ -216,11 +218,15 @@ int Net_Connection::Send(Net_Message *msg, bool deleteAfterSend)
   int hdrlen = msg->makeMessageHeader(buf);
   qint64 nbytes = m_sock->write(buf, hdrlen);
   if (nbytes != hdrlen) {
+    printf("msg length invalide: %d,%d",nbytes,hdrlen);
+
     goto err;
   }
 
   nbytes = m_sock->write((const char*)msg->get_data(), msg->get_size());
   if (nbytes != msg->get_size()) {
+      printf("msg size invalide: %d,%d",nbytes,msg->get_size());
+
     goto err;
   }
 
