@@ -128,7 +128,8 @@ bool PortMidiStreamer::read(PmEvent *event)
   if (!inputStream) {
     return false;
   }
-
+     printf("reading midi messsage %x",
+              event->message);
   return Pm_Read(inputStream, event, 1) == 1;
 }
 
