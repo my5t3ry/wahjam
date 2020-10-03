@@ -835,7 +835,7 @@ void MainWindow::ClientStatusChanged(int newStatus)
         "3. Take turns soloing.  For example 1 minute per person."
     );
     midiDevice->setNJClient(&client);
-    midiDevice->start();
+
     emit Connected();
     return;
 

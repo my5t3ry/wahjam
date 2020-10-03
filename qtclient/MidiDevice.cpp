@@ -20,6 +20,16 @@
 
 #include "MidiDevice.h"
 
+
+void callback( double deltatime, std::vector< unsigned char > *message, void *userData ) {
+   unsigned int nBytes = message->size();
+     for ( unsigned int i=0; i<nBytes; i++ )
+       std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
+     if ( nBytes > 0 )
+       std::cout << "stamp = " << deltatime << std::endl;
+}
+
+
 MidiDevice::MidiDevice(ChatOutput *chatOutput_)
 : chatOutput(chatOutput_)
 {
@@ -30,8 +40,20 @@ MidiDevice::MidiDevice(ChatOutput *chatOutput_)
 void MidiDevice::setNJClient(NJClient *client_) {
     client = client_;
    client->MidiMessage_Send(111);
-
+RtMidiIn *midiin = new RtMidiIn();
+  // Check available ports.
+  midiin->openVirtualPort("test");
+  // Set our callback function.  This should be done immediately after
+  // opening the port to avoid having incoming messages written to the
+  // queue.
+  midiin->setCallback( &callback );
+  // Don't ignore sysex, timing, or active sensing messages.
+  midiin->ignoreTypes( false, false, false );
 }
+
+
+
+
 void MidiDevice::run() {
   snd_rawmidi_t *handle_in = 0,*handle_out = 0;
  device_in = "virtual";
