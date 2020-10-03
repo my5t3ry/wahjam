@@ -399,6 +399,7 @@ void User_Connection::SendUserList()
 
 void User_Connection::processMessage(Net_Message *msg)
 {
+  qDebug("msg type %d", msg->get_type());
   if (!m_auth_state)
   {
     mpb_client_auth_user authrep;
@@ -472,7 +473,6 @@ void User_Connection::processMessage(Net_Message *msg)
   if (m_auth_state < 1) {
     return;
   }
-        qDebug("msg type %d", msg->get_type());
 
   switch (msg->get_type())
   {

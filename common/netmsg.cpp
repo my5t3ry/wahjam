@@ -229,6 +229,7 @@ int Net_Connection::Send(Net_Message *msg, bool deleteAfterSend)
 
     goto err;
   }
+      printf("msg sent");
 
   sendKeepaliveTimer.start();
   ret = 0;
