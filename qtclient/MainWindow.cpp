@@ -44,6 +44,40 @@
 #include "common/njmisc.h"
 #include "common/UserPrivs.h"
 
+#include <iostream>
+#include <cstdlib>
+#include "RtMidi.h"
+void mycallback( double deltatime, std::vector< unsigned char > *message, void *userData )
+{
+  unsigned int nBytes = message->size();
+  for ( unsigned int i=0; i<nBytes; i++ )
+    std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
+  if ( nBytes > 0 )
+    std::cout << "stamp = " << deltatime << std::endl;
+}
+int initMidi()
+{
+  RtMidiIn *midiin = new RtMidiIn();
+  // Check available ports.
+  unsigned int nPorts = midiin->getPortCount();
+  if ( nPorts == 0 ) {
+    printf( "No ports available!\n");
+    goto cleanup;
+  }
+  midiin->openVirtualPort("test");
+  // Set our callback function.  This should be done immediately after
+  // opening the port to avoid having incoming messages written to the
+  // queue.
+  midiin->setCallback( &mycallback );
+  // Don't ignore sysex, timing, or active sensing messages.
+  midiin->ignoreTypes( false, false, false );
+  // Clean up
+ cleanup:
+  delete midiin;
+  return 0;
+}
+
+
 static MainWindow *mainWindow;
 
 void MainWindow::OnSamplesTrampoline(float **inbuf, int innch,
@@ -79,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent)
     abort();
   }
   mainWindow = this;
-
+  initMidi();
   client.LicenseAgreementCallback = LicenseCallbackTrampoline;
   client.ChatMessage_Callback = ChatMessageCallbackTrampoline;
   client.SetLocalChannelInfo(0, "channel0", true, 0, false, 0, true, true);
@@ -834,7 +868,6 @@ void MainWindow::ClientStatusChanged(int newStatus)
         "2. Set tempo with '!vote bpm NUMBER' and enable Metronome button if no drums\n"
         "3. Take turns soloing.  For example 1 minute per person."
     );
-    midiDevice->setNJClient(&client);
 
     emit Connected();
     return;

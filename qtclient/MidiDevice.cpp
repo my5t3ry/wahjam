@@ -42,10 +42,6 @@ void MidiDevice::setNJClient(NJClient *client_) {
   client->MidiMessage_Send(111);
   RtMidiIn *midiin = new RtMidiIn();
   unsigned int nPorts = midiin->getPortCount();
-  if ( nPorts == 0 ) {
-      std::cout << "No ports available!\n";
-      goto cleanup;
-  }
   // Check available ports.
   midiin->openVirtualPort("test");
   // Set our callback function.  This should be done immediately after
@@ -55,8 +51,6 @@ void MidiDevice::setNJClient(NJClient *client_) {
 
   // Don't ignore sysex, timing, or active sensing messages.
   midiin->ignoreTypes( false, false, false );
-   cleanup:
-    delete midiin;
 }
 
 

@@ -106,9 +106,11 @@ QT += network widgets
 
 include(../common/libcommon.pri)
 
-QMAKE_CXXFLAGS += -Wno-write-strings -D__LINUX_ALSA__ -Wall
-CONFIG += link_pkgconfig debug config
+QMAKE_CXXFLAGS += -Wno-write-strings  -Wall
+QMAKE_LFLAGS += -Wno-write-strings  -Wall
+CONFIG += link_pkgconfig debug config console
 PKGCONFIG += ogg vorbis vorbisenc portaudio-2.0
+DEFINES += __LINUX_ALSA__
 
 # portmidi does not use pkg-config
 LIBS += -lportmidi -lvorbis -logg -lportaudio -lasound -lpthread
